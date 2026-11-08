@@ -90,6 +90,7 @@ namespace osu.Game.Online.Spectator
         private Score? currentScore;
         private long? currentScoreToken;
         private ScoreProcessor? currentScoreProcessor;
+        private HealthProcessor? currentHealthProcessor;
 
         private readonly Queue<FrameDataBundle> pendingFrameBundles = new Queue<FrameDataBundle>();
 
@@ -306,6 +307,7 @@ namespace osu.Game.Online.Spectator
             currentScore = score;
             currentScoreToken = scoreToken;
             currentScoreProcessor = state.ScoreProcessor;
+            currentHealthProcessor = state.HealthProcessor;
         }
 
         private void clearScoreState()
@@ -315,6 +317,7 @@ namespace osu.Game.Online.Spectator
             currentBeatmap = null;
             currentScore = null;
             currentScoreProcessor = null;
+            currentHealthProcessor = null;
             currentScoreToken = null;
         }
 
@@ -391,6 +394,7 @@ namespace osu.Game.Online.Spectator
 
             var frames = pendingFrames.ToArray();
             var bundle = new FrameDataBundle(currentScore.ScoreInfo, currentScoreProcessor, frames);
+            bundle.Header.Health = currentHealthProcessor?.Health.Value;
 
             pendingFrames.Clear();
             lastPurgeTime = Time.Current;

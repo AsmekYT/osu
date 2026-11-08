@@ -90,6 +90,9 @@ namespace osu.Game.Online.Spectator
         [Key(9)]
         public int[]? Pauses { get; set; }
 
+        [Key(10)]
+        public double? Health { get; set; }
+
         /// <summary>
         /// Construct header summary information from a point-in-time reference to a score which is actively being played.
         /// </summary>
@@ -122,7 +125,8 @@ namespace osu.Game.Online.Spectator
             DateTimeOffset receivedTime,
             APIMod[] mods,
             long? totalScoreWithoutMods,
-            int[]? pauses)
+            int[]? pauses,
+            double? health = null)
         {
             TotalScore = totalScore;
             Accuracy = accuracy;
@@ -134,6 +138,7 @@ namespace osu.Game.Online.Spectator
             Mods = mods;
             TotalScoreWithoutMods = totalScoreWithoutMods;
             Pauses = pauses;
+            Health = health;
         }
     }
 }

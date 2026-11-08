@@ -7,6 +7,7 @@ using System.Diagnostics;
 using osu.Framework.Bindables;
 using osu.Framework.Utils;
 using osu.Game.Rulesets.Judgements;
+using osu.Game.Rulesets.Replays;
 using osu.Game.Scoring;
 
 namespace osu.Game.Rulesets.Scoring
@@ -116,6 +117,14 @@ namespace osu.Game.Rulesets.Scoring
         public void PopulateScore(ScoreInfo score)
         {
             score.HealthGraph = healthGraph;
+        }
+
+        public override void ResetFromReplayFrame(ReplayFrame frame)
+        {
+            base.ResetFromReplayFrame(frame);
+
+            if (frame.Header?.Health is double health)
+                Health.Value = health;
         }
 
         protected override void Reset(bool storeResults)

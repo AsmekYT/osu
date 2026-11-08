@@ -756,10 +756,16 @@ namespace osu.Game.Screens.Play
             bool wasFrameStable = DrawableRuleset.FrameStablePlayback;
             DrawableRuleset.FrameStablePlayback = false;
 
+            double healthBeforeSeek = HealthProcessor.Health.Value;
+
             GameplayClockContainer.Reset(time);
 
             // Delay resetting frame-stable playback for one frame to give the FrameStabilityContainer a chance to seek.
-            frameStablePlaybackResetDelegate = ScheduleAfterChildren(() => DrawableRuleset.FrameStablePlayback = wasFrameStable);
+            frameStablePlaybackResetDelegate = ScheduleAfterChildren(() =>
+            {
+                DrawableRuleset.FrameStablePlayback = wasFrameStable;
+                HealthProcessor.Health.Value = healthBeforeSeek;
+            });
         }
 
         /// <summary>

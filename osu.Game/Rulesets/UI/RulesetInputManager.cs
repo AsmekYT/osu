@@ -35,6 +35,9 @@ namespace osu.Game.Rulesets.UI
         [Resolved]
         private ScoreProcessor? scoreProcessor { get; set; }
 
+        [Resolved]
+        private HealthProcessor? healthProcessor { get; set; }
+
         private ReplayRecorder? recorder;
 
         public ReplayRecorder? Recorder
@@ -92,6 +95,7 @@ namespace osu.Game.Rulesets.UI
 
                 case ReplayStatisticsFrameEvent statisticsStateChangeEvent:
                     scoreProcessor?.ResetFromReplayFrame(statisticsStateChangeEvent.Frame);
+                    healthProcessor?.ResetFromReplayFrame(statisticsStateChangeEvent.Frame);
                     break;
 
                 default:
