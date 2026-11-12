@@ -121,10 +121,14 @@ namespace osu.Game.Rulesets.Scoring
 
         public override void ResetFromReplayFrame(ReplayFrame frame)
         {
-            base.ResetFromReplayFrame(frame);
+            if (frame.Header?.Health is not double health)
+                return;
 
-            if (frame.Header?.Health is double health)
-                Health.Value = health;
+            base.ResetFromReplayFrame(frame);
+            Health.Value = health;
+
+            if (frame.Header.HasFailed)
+                TriggerFailure();
         }
 
         protected override void Reset(bool storeResults)

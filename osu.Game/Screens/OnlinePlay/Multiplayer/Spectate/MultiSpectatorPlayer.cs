@@ -2,6 +2,7 @@
 // See the LICENCE file in the repository root for full licence text.
 
 using System;
+using System.Linq;
 using System.Threading;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
@@ -104,6 +105,8 @@ namespace osu.Game.Screens.OnlinePlay.Multiplayer.Spectate
         }
 
         protected override ResultsScreen CreateResults(ScoreInfo score) => new MultiSpectatorResultsScreen(score);
+
+        protected override bool CheckModsAllowFailure() => Score.Replay.Frames.LastOrDefault(f => f.Header?.Health != null)?.Header!.HasFailed ?? base.CheckModsAllowFailure();
 
         protected override void PerformFail()
         {

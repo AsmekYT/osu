@@ -968,6 +968,9 @@ namespace osu.Game.Screens.Play
             if (GameplayState.HasQuit)
                 return false;
 
+            if (!DrawableRuleset.FrameStablePlayback)
+                return false;
+
             if (!CheckModsAllowFailure())
                 return false;
 

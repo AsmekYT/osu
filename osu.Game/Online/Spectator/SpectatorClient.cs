@@ -395,6 +395,7 @@ namespace osu.Game.Online.Spectator
             var frames = pendingFrames.ToArray();
             var bundle = new FrameDataBundle(currentScore.ScoreInfo, currentScoreProcessor, frames);
             bundle.Header.Health = currentHealthProcessor?.Health.Value;
+            bundle.Header.HasFailed = currentHealthProcessor?.HasFailed == true;
 
             pendingFrames.Clear();
             lastPurgeTime = Time.Current;
